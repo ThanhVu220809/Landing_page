@@ -1,165 +1,172 @@
-# BA.SEW Landing Page
+# BA.SEW — Landing Page
 
-**Landing thương mại cho thiết bị cảnh báo khẩn cấp BA.SEW**  
-*(BE SMART EMERGENCY WARNING)* — one-page conversion: giới thiệu → trải nghiệm tracking → giỏ hàng → checkout VietQR/COD.
+### Thiết bị cảnh báo khẩn cấp thông minh · landing bán hàng end-to-end
 
 <p align="center">
-  <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
-  <img alt="Webpack" src="https://img.shields.io/badge/Webpack-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black" />
-  <img alt="Zod" src="https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Webpack_5-8DD6F9?style=for-the-badge&logo=webpack&logoColor=black" alt="Webpack" />
+  <img src="https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge" alt="Zod" />
 </p>
 
-> Một mắt xích trong hệ sinh thái **BA.SEW**:  
-> **Firmware ESP32** → **Cloud relay** → **[Tracking map](https://github.com/ThanhVu220809/Tracking_page)** → **Landing bán hàng (repo này)**
+<p align="center">
+  <strong>BE SMART EMERGENCY WARNING</strong><br/>
+  <sub>One-page conversion · giỏ hàng · VietQR · lead · analytics</sub>
+</p>
 
 ---
 
-## Sản phẩm đang bán gì?
+## ✨ Một dòng
 
-BA.SEW là thiết bị SOS + GPS cho người thân (người lớn tuổi, trẻ em, đi một mình):
-
-- Bấm nút → SMS + gọi cascade + chia sẻ vị trí
-- Theo dõi qua web, **không cần cài app**
-- Giá niêm yết landing: **400.000đ / thiết bị** · ship toàn quốc
-
-Landing này không chỉ “đẹp” — nó đóng **funnel bán hàng end-to-end**.
+Landing thương mại cho **BA.SEW** — thiết bị SOS + GPS: giới thiệu sản phẩm, demo trải nghiệm bản đồ, bỏ vào giỏ, checkout COD / chuyển khoản — không cần app, ship toàn quốc.
 
 ---
 
-## Tính năng
+## 🎯 Sản phẩm trên landing
 
-### Conversion UI
-| Section | Việc |
-|---|---|
-| **Hero** | Headline + bullet SOS/GPS/web + CTA |
-| **Overview** | BA.SEW là gì · đối tượng · 3 bước hoạt động |
-| **Experience** | Video demo + deep-link sang Tracking map |
-| **Conversion** | Pricing / CTA đặt hàng |
-| **Checkout** | Giỏ hàng · form · VietQR / MoMo / Bank / COD |
+<table>
+<tr>
+<td width="33%" align="center">
 
-### Thương mại
-- **Cart context** — chọn màu, SL, tổng tiền realtime
-- **Order modal + checkout drawer** — UX kiểu Apple (blur, rounded, micro-interaction)
-- **VietQR động** — BIN ngân hàng + STK + nội dung `BASEW…` từ env
-- **Validate VN phone** (regex nhà mạng) + email
-- **Submit order → Google Apps Script** (Sheets backend), follow redirect 302
+### 🆘 SOS một nút
+SMS + gọi điện cascade  
+chia sẻ vị trí ngay
 
-### Lead & analytics
-- Lead form → Google Sheet webhook (fallback local endpoint)
-- Demo mode (`VITE_LEAD_FORM_DEMO_MODE`) để demo không spam sheet
-- Optional **GA4 + Meta Pixel** (bật bằng flag)
+</td>
+<td width="33%" align="center">
 
-### DX / chất lượng
-- **i18n vi/en** sẵn framework
-- Dark/light theme hook
-- `useInView` scroll reveal
-- Error boundary toàn app
-- `check-image-dims` script — chặn ảnh quá lớn làm chậm LCP
-- Deploy tự động **GitHub Actions → Pages**
+### 📍 GPS realtime
+Theo dõi trên web map  
+**không cài app**
+
+</td>
+<td width="33%" align="center">
+
+### 👨‍👩‍👧‍👦 Cho người thân
+Người lớn tuổi · trẻ em  
+đi một mình / gia đình
+
+</td>
+</tr>
+</table>
+
+**Giá niêm yết:** 400.000đ / thiết bị · **miễn phí vận chuyển** toàn quốc
 
 ---
 
-## Kiến trúc funnel
+## 🛒 Funnel bán hàng
 
 ```text
-Visitor
-  │
-  ├─ Hero / Overview  ─── hiểu sản phẩm
-  ├─ Experience       ─── xem demo + mở Tracking_page
-  ├─ Add to cart      ─── CartProvider
-  └─ Checkout
-        ├─ COD
-        ├─ VietQR / Bank / MoMo  → PaymentQRModal
-        └─ POST Google Apps Script → Sheet đơn hàng
+  HERO          OVERVIEW        EXPERIENCE       GIỎ HÀNG        CHECKOUT
+ ──────►       ──────►         ──────►         ──────►         ──────►
+  Hook + CTA    Là gì / ai      Video + map      Màu · SL · $     VietQR / COD
+                dùng được       deep-link        realtime         → đơn vào Sheet
 ```
 
-Liên kết hệ sinh thái:
-
-```text
-Landing_page  ──link──►  Tracking_page (bản đồ)
-                 ▲
-                 │ API
-esp32_sim_neo10 ──POST──► Cloudflare Worker / selfhost-relay
-```
+| Bước | Người dùng thấy | Hệ thống làm |
+|------|-----------------|--------------|
+| **Hero** | Headline, bullet, giá, CTA | First impression |
+| **Overview** | 3 đối tượng + 3 bước hoạt động | Education |
+| **Experience** | Video demo + link bản đồ live | Trust / try |
+| **Đặt hàng** | Chọn màu, số lượng | Cart state |
+| **Checkout** | Form + QR thanh toán | Validate · submit order |
+| **Lead** | Form quan tâm nhanh | Webhook Google Sheet |
 
 ---
 
-## Tech stack
+## 💳 Thanh toán & đơn hàng
+
+| Phương thức | Chi tiết |
+|-------------|----------|
+| **VietQR** | QR động theo BIN · STK · nội dung `BASEW…` |
+| **Chuyển khoản** | Bank config qua env |
+| **MoMo** | QR / SĐT (optional) |
+| **COD** | Thanh toán khi nhận |
+
+- Validate **SĐT Việt Nam** (đầu số nhà mạng) + email  
+- Order → **Google Apps Script / Sheet** (backend không server riêng)  
+- Demo mode tắt spam sheet khi trình diễn  
+
+---
+
+## 🎨 UX / UI
 
 | | |
-|---|---|
-| UI | React 18 · TypeScript · Tailwind · lucide-react |
-| Form | react-hook-form · Zod · `@hookform/resolvers` |
-| Build | Webpack 5 (dev server `:8082`) · PostCSS · sharp |
-| Deploy | GitHub Actions `deploy.yml` → GitHub Pages |
+|--|--|
+| Phong cách | Apple-like: blur, rounded 2xl, micro-scale |
+| Theme | Light / dark ready |
+| Ngôn ngữ | **i18n vi · en** |
+| Motion | Scroll reveal khi section vào viewport |
+| Cart | Dropdown túi xách + drawer checkout |
+| Safety | Error boundary toàn app · help modal |
 
 ---
 
-## Chạy local
-
-```bash
-npm ci
-cp .env.example .env
-npm run dev
-# → http://localhost:8082
-```
-
-```bash
-npm run type-check
-npm run check-images
-npm run build
-```
-
-### Biến môi trường quan trọng
-
-```env
-VITE_TRACKING_WEB_URL=https://thanhvu220809.github.io/Tracking_page/
-VITE_DEMO_VIDEO_EMBED_URL=videos/basew-demo.mp4
-VITE_LEAD_FORM_DEMO_MODE=false
-VITE_GOOGLE_SHEET_WEBHOOK_URL=
-VITE_ENABLE_ANALYTICS=false
-VITE_GA_MEASUREMENT_ID=
-VITE_META_PIXEL_ID=
-
-# Thanh toán
-VITE_PAYMENT_BANK_BIN=970422
-VITE_PAYMENT_ACCOUNT_NO=
-VITE_PAYMENT_ACCOUNT_NAME=
-VITE_PAYMENT_BANK_NAME=MB Bank
-VITE_PAYMENT_COMPANY_PREFIX=BASEW
-```
-
----
-
-## Cấu trúc
+## 🏗️ Công nghệ
 
 ```text
-src/
-├── components/          # Navbar, Footer, Cart, Order, PaymentQR
-│   └── sections/        # Hero · Overview · Experience · Conversion · Checkout
-├── hooks/               # theme · cart · inView · address · scrolled
-├── i18n/                # vi / en
-├── services/
-│   ├── forms/           # lead + order (validate + submit)
-│   └── analytics/       # GA / Pixel
-├── config/env.ts        # single source for env
-└── pages/Index.tsx      # composition root
+┌──────────────────────────────────────────────┐
+│  React 18  ·  TypeScript  ·  Tailwind CSS    │
+│  react-hook-form  ·  Zod  ·  lucide-react    │
+└────────────────────┬─────────────────────────┘
+                     │
+        Lead / Order webhook · GA4 · Meta Pixel
+                     │
+┌────────────────────▼─────────────────────────┐
+│  Google Sheets (Apps Script)                 │
+│  Optional analytics IDs                      │
+│  Deep-link → Tracking Map                    │
+└──────────────────────────────────────────────┘
+                     │
+┌────────────────────▼─────────────────────────┐
+│  Webpack 5 production build                  │
+│  GitHub Actions → GitHub Pages               │
+└──────────────────────────────────────────────┘
+```
+
+### Stack
+
+| Tầng | Công nghệ |
+|------|-----------|
+| UI | React 18 · TypeScript · Tailwind · lucide |
+| Form | react-hook-form · Zod resolvers |
+| Build | Webpack 5 · PostCSS · image budget check |
+| Commerce | Cart context · VietQR · multi payment |
+| Growth | GA4 · Meta Pixel (flag) · lead capture |
+| Deploy | GitHub Actions → Pages |
+
+---
+
+## 🌐 Hệ sinh thái BA.SEW
+
+Landing không đứng một mình — nối với phần cứng & map:
+
+| | Vai trò |
+|--|---------|
+| **[Firmware ESP32](https://github.com/ThanhVu220809/esp32_sim_neo10)** | SOS · GPS · 4G · FreeRTOS |
+| **[Tracking Map](https://github.com/ThanhVu220809/Tracking_page)** | Bản đồ live người thân mở trên web |
+| **Landing (repo này)** | Bán hàng · education · checkout |
+
+```text
+  Thiết bị ──POST──► Cloud ──API──► Bản đồ web
+                                      ▲
+  Landing ──── “Trải nghiệm ngay” ────┘
+  Landing ──── đơn hàng ──► Google Sheet
 ```
 
 ---
 
-## Repo liên quan
+## 🚀 Deploy
 
-| Repo | Vai trò |
-|---|---|
-| [`esp32_sim_neo10`](https://github.com/ThanhVu220809/esp32_sim_neo10) | Firmware SOS · GPS · 4G · FreeRTOS |
-| [`Tracking_page`](https://github.com/ThanhVu220809/Tracking_page) | Web map theo dõi thiết bị |
-| [`owin-quote-tool`](https://github.com/ThanhVu220809/owin-quote-tool) | Tool báo giá cửa nhôm (project khác) |
+| | |
+|--|--|
+| Platform | GitHub Pages |
+| Pipeline | push `main` → install → build → deploy |
+| Config | Bank / Sheet / analytics qua env secrets |
 
 ---
 
 <p align="center">
-  <strong>BA.SEW</strong> — Be Smart Emergency Warning · Landing built to convert
+  <sub><strong>BA.SEW</strong> — Be Smart Emergency Warning · built to convert</sub>
 </p>
